@@ -1,1 +1,5 @@
 Run main.py to start kivy app
+If you make changes to a user you will have to close out of application then open it again for it to work
+You can use the following link to disply the database.db file (just drag and drop that file in the browser): http://sqliteviewer.flowsoft7.com/
+To update and delete songs (if you do not know the index) use the above link to display the playlist and find the index of the song you wish to update or delete
+
