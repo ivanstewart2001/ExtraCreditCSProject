@@ -1,0 +1,480 @@
+#:kivy 2.0.0
+
+<WelcomeScreen>:
+    GridLayout:
+        cols: 1
+        GridLayout:
+            cols: 1
+            Label:
+                text: "Welcome to CRUD CDLL Playlist"
+        GridLayout:
+            cols: 2
+            Button:
+                text: "Login"
+                on_press: root.log_in_screen()
+            Button:
+                text: "Sign Up"
+                on_press: root.sign_up_screen()
+
+##############################################################################################################################
+
+<LoginScreen>:
+    GridLayout:
+        cols: 1 
+        GridLayout:
+            cols: 1
+            Label:
+                text: "User Login"
+            TextInput:
+                hint_text: "Username"
+                id: username
+            Button:
+                text: "Login"
+                on_press: root.log_in(root.ids.username.text)
+            Button:
+                text: "Back to Welcome"
+                on_press: root.back_to_welcome()
+
+<LoginErrorScreen>:
+    GridLayout:
+        cols: 1
+        GridLayout:
+            cols: 1
+            Label:
+                text: "Login Error"
+            Label:
+                text: "Username not found. Please try again"
+            Button:
+                text: "Back to Login"
+                on_press: root.back_to_login()
+
+##############################################################################################################################
+
+<SignUpScreen>:
+    GridLayout:
+        cols: 1
+        GridLayout:
+            cols: 1
+            Label:
+                text: "Sign Up"
+            TextInput:
+                hint_text: "Desired Username"
+                id: desired_username
+            Button:
+                text: "Submit"
+                on_press: root.signup_submit(root.ids.desired_username.text)
+            Button:
+                text: "Back to Welcome"
+                on_press: root.back_to_welcome()
+
+<SignUpSuccessScreen>:
+    GridLayout:
+        cols: 1
+        GridLayout:
+            cols: 1
+            Label:
+                text: "Sign Up Success"
+            Label:
+                text: "You have successfully created an account. Please return to welcome screen to login."
+            Button:
+                text: "Back to Welcome"
+                on_press: root.back_to_welcome()
+
+<SignUpErrorScreen>:
+    GridLayout:
+        cols: 1
+        GridLayout:
+            cols: 1
+            Label:
+                text: "Sign Up Error"
+            Label:
+                text: "That username already exists. Please try again."
+            Button:
+                text: "Back to Sign Up"
+                on_press: root.back_to_signup()
+
+##############################################################################################################################
+
+<MenuScreen>:
+    GridLayout:
+        cols: 1
+        GridLayout:
+            cols: 1
+            Label:
+                text: "Menu"
+        GridLayout:
+            cols: 2
+            Button:
+                text: "Create Playlist"
+                on_press: root.to_create_playlist()
+            Button:
+                text: "Add Song to Playlist"
+                on_press: root.to_add_song()
+        GridLayout:
+            cols: 2
+            Button:
+                text: "Update Song Names"
+                on_press: root.to_update_song()
+            Button:
+                text: "Delete Songs from Playlist"
+                on_press: root.to_delete_song()
+        GridLayout:
+            cols: 2
+            Button:
+                text: "Delete Entire Playlist"
+                on_press: root.to_delete_entire_playlist()
+            Button:
+                text: "View Playlist"
+                on_press: root.to_view_playlist()
+        GridLayout:
+            cols: 1
+            Button:
+                text: "Log Out"
+                on_press: root.logout()
+
+##############################################################################################################################
+
+<CreatePlaylistScreen>:
+    GridLayout:
+        cols: 1
+        GridLayout:
+            cols: 1
+            Label:
+                text: "Create Playlist"
+            TextInput:
+                hint_text: "Name of first song to add"
+                id: name_of_first_song
+            Button:
+                text: "Submit"
+                on_press: root.create_playlist_submit(root.ids.name_of_first_song.text)
+            Button:
+                text: "Back to Menu"
+                on_press: root.back_to_menu()
+
+<CreatePlaylistSuccessScreen>:
+    GridLayout:
+        cols: 1
+        GridLayout:
+            cols: 1
+            Label:
+                text: "Create Playlist Success"
+            Label:
+                text: "Your playlist has been successfully created."
+            Button:
+                text: "Back to Menu"
+                on_press: root.back_to_menu()  
+
+<CreatePlaylistErrorScreen>:
+    GridLayout:
+        cols: 1
+        GridLayout:
+            cols: 1
+            Label:
+                text: "Create Playlist Error"
+            Label:
+                text: "You already have a playlist created."
+            Button:
+                text: "Back to Menu" 
+                on_press: root.back_to_menu()     
+
+##############################################################################################################################
+
+<AddSongScreen>:
+    GridLayout:
+        cols: 1
+        GridLayout:
+            cols: 1
+            Label:
+                text: "Add Song"
+            TextInput:
+                hint_text: "Song Title"
+                id: song_title
+            TextInput:
+                hint_text: "Song Position - B:Beginning E:End"
+                id: song_position
+            Button:
+                text: "Submit"
+                on_press: root.add_song_submit(root.ids.song_title.text, root.ids.song_position.text)
+            Button:
+                text: "Back to Menu"
+                on_press: root.back_to_menu()
+
+<AddSongSuccessScreen>:
+    GridLayout:
+        cols: 1
+        GridLayout:
+            cols: 1
+            Label:
+                text: "Add Song Success"
+            Label:
+                text: "Message"
+            Button:
+                text: "Back to Add Song"  
+                on_press: root.back_to_add_song()
+
+<AddSongErrorScreen>:
+    GridLayout:
+        cols: 1
+        GridLayout:
+            cols: 1
+            Label:
+                text: "Add Song Error"
+            Label:
+                text: "Message"
+            Button:
+                text: "Back to Add Song"
+                on_press: root.back_to_add_song()  
+
+##############################################################################################################################               
+
+<UpdateSongNamesScreen>:
+    GridLayout:
+        cols: 1
+        GridLayout:
+            cols: 1
+            Label:
+                text: "Update Song Name"
+            ScrollView:
+                do_scroll_x: True
+                do_scroll_y: True
+                Label:
+                    size_hint_y: None
+                    height: self.texture_size[1]
+                    text_size: self.width, None
+                    padding: 10, 10
+                    text: root.song_list()
+                    
+            TextInput:
+                hint_text: "Number of song you want to update"
+                id: number_of_song
+            TextInput:
+                hint_text: "New Desired Name"
+                id: new_desired_name
+            Button:
+                text: "Submit"
+                on_press: root.update_song_submit(root.ids.number_of_song.text, root.ids.new_desired_name.text)
+            Button:
+                text: "Back to Menu"
+                on_press: root.back_to_menu()
+
+<UpdateSongNamesSuccessScreen>:
+    GridLayout:
+        cols: 1
+        GridLayout:
+            cols: 1
+            Label:
+                text: "Update Song Names Success"
+            Label:
+                text: "Message"
+            Button:
+                text: "Back to Update Song Name" 
+                on_press: root.back_to_update_song()
+
+<UpdateSongNamesErrorScreen>:
+    GridLayout:
+        cols: 1
+        GridLayout:
+            cols: 1
+            Label:
+                text: "Update Song Names Error"
+            Label:
+                text: "Message"
+            Button:
+                text: "Back to Update Song Name"  
+                on_press: root.back_to_update_song()
+
+##############################################################################################################################
+
+<DeleteSongsScreen>:
+    GridLayout:
+        cols: 1
+        GridLayout:
+            cols: 1
+            Label:
+                text: "Delete Song"
+            ScrollView:
+                do_scroll_x: True
+                do_scroll_y: True
+                Label:
+                    size_hint_y: None
+                    height: self.texture_size[1]
+                    text_size: self.width, None
+                    padding: 10, 10
+                    text: root.song_list()
+            TextInput:
+                hint_text: "Number of song you want to delete"
+                id: number_of_delete
+            Button:
+                text: "Submit"
+                on_press: root.delete_song_submit(root.ids.number_of_delete.text)
+            Button:
+                text: "Back to Menu"
+                on_press: root.back_to_menu()
+
+<DeleteSongsSuccessScreen>:
+    GridLayout:
+        cols: 1
+        GridLayout:
+            cols: 1
+            Label:
+                text: "Delete Song Success"
+            Label:
+                text: "Message"
+            Button:
+                text: "Back to Delete Song" 
+                on_press: root.back_to_delete_song()
+
+<DeleteSongsErrorScreen>:
+    GridLayout:
+        cols: 1
+        GridLayout:
+            cols: 1
+            Label:
+                text: "Delete Song Error"
+            Label:
+                text: "Message"
+            Button:
+                text: "Back to Delete Song" 
+                on_press: root.back_to_delete_song() 
+
+##############################################################################################################################
+
+<DeleteEntirePlaylistScreen>:
+    GridLayout:
+        cols: 1
+        GridLayout:
+            cols: 1
+            Label:
+                text: "Delete Entire Playlist"
+            Label:
+                text: "Message"
+        GridLayout:
+            cols: 2
+            Button:
+                text: "Yes"
+                on_press: root.yes()
+            Button:
+                text: "No"
+                on_press: root.no()
+        GridLayout:
+            cols: 1
+            Button:
+                text: "Back to Menu"
+                on_press: root.back_to_menu()
+
+<DeleteEntirePlaylistSuccessScreen>:
+    GridLayout:
+        cols: 1
+        GridLayout:
+            cols: 1
+            Label:
+                text: "Delete Entire Playlist Success"
+            Label:
+                text: "Message"
+            Button:
+                text: "Back to Menu"  
+                on_press: root.back_to_menu()
+
+<DeleteEntirePlaylistErrorScreen>:
+    GridLayout:
+        cols: 1
+        GridLayout:
+            cols: 1
+            Label:
+                text: "Delete Entire Playlist Error"
+            Label:
+                text: "Message"
+            Button:
+                text: "Back to Menu"
+                on_press: root.back_to_menu()  
+
+##############################################################################################################################
+
+<ViewPlaylistScreen>:
+    GridLayout:
+        cols: 1
+        GridLayout:
+            cols: 1
+            Label:
+                text: "View Playlist"
+            Label:
+                text: "Song Title"
+        GridLayout:
+            cols: 2
+            Button:
+                text: "Previous Song"
+            Button:
+                text: "Next Song"
+        GridLayout:
+            cols: 1
+            Button:
+                text: "Back to Menu"
+                on_press: root.back_to_menu()
+
+<ViewPlaylistErrorScreen>:
+    GridLayout:
+        cols: 1
+        GridLayout:
+            cols: 1
+            Label:
+                text: "View Playlist Error"
+            Label:
+                text: "Message"
+            Button:
+                text: "Back to Menu"  
+                on_press: root.back_to_menu()
+
+##############################################################################################################################
+
+<RootWidgit>:
+    WelcomeScreen:
+        name: "welcome_screen"
+    LoginScreen:
+        name: "login_screen"
+    LoginErrorScreen:
+        name: "login_error_screen"
+    SignUpScreen:
+        name: "signup_screen"
+    SignUpSuccessScreen:
+        name: "signup_success_screen"
+    SignUpErrorScreen:
+        name: "signup_error_screen"
+    MenuScreen:
+        name: "menu_screen"
+    CreatePlaylistScreen:
+        name: "create_playlist_screen"
+    CreatePlaylistSuccessScreen:
+        name: "create_playlist_success_screen"
+    CreatePlaylistErrorScreen:
+        name: "create_playlist_error_screen"
+    AddSongScreen:
+        name: "add_song_screen"
+    AddSongSuccessScreen:
+        name: "add_song_success_screen"
+    AddSongErrorScreen:
+        name: "add_song_error_screen"
+    UpdateSongNamesScreen:
+        name: "update_song_names_screen"
+    UpdateSongNamesSuccessScreen:
+        name: "update_song_names_success_screen"
+    UpdateSongNamesErrorScreen:
+        name: "update_song_names_error_screen"
+    DeleteSongsScreen:
+        name: "delete_songs_screen"
+    DeleteSongsSuccessScreen:
+        name: "delete_songs_success_screen"
+    DeleteSongsErrorScreen:
+        name: "delete_songs_error_screen"
+    DeleteEntirePlaylistScreen:
+        name: "delete_entire_playlist_screen"
+    DeleteEntirePlaylistSuccessScreen:
+        name: "delete_entire_playlist_success_screen"
+    DeleteEntirePlaylistErrorScreen:
+        name: "delete_entire_playlist_error_screen"
+    ViewPlaylistScreen:
+        name: "view_playlist_screen"
+    ViewPlaylistErrorScreen:
+        name: "view_playlist_error_screen"
+
+    
+
